@@ -79,4 +79,7 @@ public class Admin extends User {
     public void setManagedUsers(List<String> managedUsers) {
         this.managedUsers = managedUsers;
     }
+
+    public List<String> listAllUsers() {
+    }
 }

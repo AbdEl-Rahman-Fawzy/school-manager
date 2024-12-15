@@ -111,4 +111,16 @@ public class Student extends User {
     public void setCertified(boolean certified) {
         isCertified = certified;
     }
+
+    public void enrollInCourse(String courseID) {
+    }
+
+    public void dropCourse(String courseID) {
+    }
+
+    public String viewGrades(String courseID) {
+    }
+
+    public List<String> viewAssignments(String courseID) {
+    }
 }

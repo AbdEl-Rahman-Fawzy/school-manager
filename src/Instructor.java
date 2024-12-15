@@ -120,4 +120,16 @@ public class Instructor extends User {
     public void updateProfile() {
         // Method logic
     }
+
+    public void gradeAssignment(String studentID, String assignmentID, String grade) {
+    }
+
+    public List<String> viewStudentsInCourse(String courseID) {
+    }
+
+    public String viewStudentProgress(String studentID, String courseID) {
+    }
+
+    public void uploadCourseMaterial(String courseID, String materialID) {
+    }
 }

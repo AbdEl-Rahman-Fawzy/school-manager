@@ -60,6 +60,9 @@ public abstract class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public void sendNotification(String message) {
+    }
 }
 enum Role {
     ADMIN,
