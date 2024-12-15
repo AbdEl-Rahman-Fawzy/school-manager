@@ -71,7 +71,7 @@ public class StudentController {
         return "Student not found!";
     }
 
-    // Method to view assignments
+    // Method to view assignments in a course
     @GetMapping("/viewAssignments")
     public List<String> viewAssignments(@RequestParam String studentID, @RequestParam String courseID) {
         Student student = findStudentById(studentID);
@@ -79,6 +79,51 @@ public class StudentController {
             return student.viewAssignments(courseID);  // Assuming this method is in the Student class
         }
         return null;  // Or return an appropriate response
+    }
+
+    // Method to attempt a quiz
+    @PostMapping("/attemptQuiz")
+    public String attemptQuiz(@RequestParam String studentID, @RequestParam String quizID) {
+        Student student = findStudentById(studentID);
+        if (student != null) {
+            student.attemptQuiz(quizID);
+            return "Quiz attempted successfully!";
+        }
+        return "Student not found!";
+    }
+
+    // Method to view the student's progress (overall score, completed assignments, quizzes)
+    @GetMapping("/viewProgress")
+    public String viewProgress(@RequestParam String studentID) {
+        Student student = findStudentById(studentID);
+        if (student != null) {
+            return student.viewProgress();
+        }
+        return "Student not found!";
+    }
+
+    // Method to view course materials
+    @GetMapping("/viewCourseMaterials")
+    public List<String> viewCourseMaterials(@RequestParam String studentID, @RequestParam String courseID) {
+        Student student = findStudentById(studentID);
+        if (student != null) {
+            return student.viewCourseMaterials(courseID);  // Assuming this method is in the Student class
+        }
+        return null;  // Or return an appropriate response
+    }
+
+    // Method to request certification if the student meets the requirements
+    @PostMapping("/requestCertification")
+    public String requestCertification(@RequestParam String studentID) {
+        Student student = findStudentById(studentID);
+        if (student != null) {
+            if (student.isEligibleForCertification()) {
+                return "Certification requested successfully!";
+            } else {
+                return "Student is not eligible for certification.";
+            }
+        }
+        return "Student not found!";
     }
 
     // Helper method to find student by ID (for demo purposes)

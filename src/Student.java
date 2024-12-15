@@ -15,11 +15,6 @@ public class Student extends User {
         this.studentID = studentID;
     }
 
-    // Method to enroll in a course
-    public void enrollCourse(String courseID) {
-        // Method logic
-    }
-
     // Method to submit an assignment
     public void submitAssignment(String assignmentID) {
         // Method logic
@@ -31,13 +26,15 @@ public class Student extends User {
     }
 
     // Method to view the student's progress (overall score, completed assignments, quizzes)
-    public void viewProgress() {
+    public String viewProgress() {
         // Method logic
+        return null;
     }
 
     // Method to view course materials
-    public void viewCourseMaterials(String courseID) {
+    public List<String> viewCourseMaterials(String courseID) {
         // Method logic
+        return null;
     }
 
     // Method to request certification (if the student meets the requirements)
@@ -47,7 +44,7 @@ public class Student extends User {
 
     // Method to update the student's profile (e.g., name, email, password)
     @Override
-    public void updateProfile() {
+    public void updateProfile(String newName, String newEmail) {
         // Method logic
     }
 
@@ -119,8 +116,14 @@ public class Student extends User {
     }
 
     public String viewGrades(String courseID) {
+        return null;
     }
 
     public List<String> viewAssignments(String courseID) {
+        return  null;
+    }
+
+    public boolean isEligibleForCertification() {
+        return  false;
     }
 }

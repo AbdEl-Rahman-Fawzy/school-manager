@@ -29,13 +29,24 @@ public class InstructorController {
         return "Instructor not found!";
     }
 
-    // Method to grade an assignment
+    // Method to grade a student assignment
     @PostMapping("/gradeAssignment")
     public String gradeAssignment(@RequestParam String instructorID, @RequestParam String studentID, @RequestParam String assignmentID, @RequestParam String grade) {
         Instructor instructor = findInstructorById(instructorID);
         if (instructor != null) {
             instructor.gradeAssignment(studentID, assignmentID, grade);
             return "Assignment graded successfully!";
+        }
+        return "Instructor not found!";
+    }
+
+    // Method to add a quiz to a course
+    @PostMapping("/addQuiz")
+    public String addQuiz(@RequestParam String instructorID, @RequestParam String courseID, @RequestParam String quizID) {
+        Instructor instructor = findInstructorById(instructorID);
+        if (instructor != null) {
+            instructor.addQuiz(courseID, quizID);
+            return "Quiz added to course successfully!";
         }
         return "Instructor not found!";
     }
@@ -50,7 +61,7 @@ public class InstructorController {
         return null;  // Or return an appropriate response
     }
 
-    // Method to view student progress
+    // Method to view student progress in a course
     @GetMapping("/viewProgress")
     public String viewProgress(@RequestParam String instructorID, @RequestParam String studentID, @RequestParam String courseID) {
         Instructor instructor = findInstructorById(instructorID);
@@ -67,6 +78,39 @@ public class InstructorController {
         if (instructor != null) {
             instructor.uploadCourseMaterial(courseID, materialID);  // Assuming method is implemented in Instructor class
             return "Course material uploaded successfully!";
+        }
+        return "Instructor not found!";
+    }
+
+    // Method to update the instructor's profile (e.g., bio)
+    @PostMapping("/updateProfile")
+    public String updateProfile(@RequestParam String instructorID, @RequestParam String newBio) {
+        Instructor instructor = findInstructorById(instructorID);
+        if (instructor != null) {
+            instructor.updateProfile(newBio);  // Assuming method is implemented in Instructor class
+            return "Instructor profile updated successfully!";
+        }
+        return "Instructor not found!";
+    }
+
+    // Method to deactivate an instructor
+    @PostMapping("/deactivateInstructor")
+    public String deactivateInstructor(@RequestParam String instructorID) {
+        Instructor instructor = findInstructorById(instructorID);
+        if (instructor != null) {
+            instructor.deactivateInstructor();  // Assuming method is implemented in Instructor class
+            return "Instructor deactivated successfully!";
+        }
+        return "Instructor not found!";
+    }
+
+    // Method to reactivate an instructor
+    @PostMapping("/reactivateInstructor")
+    public String reactivateInstructor(@RequestParam String instructorID) {
+        Instructor instructor = findInstructorById(instructorID);
+        if (instructor != null) {
+            instructor.reactivateInstructor();  // Assuming method is implemented in Instructor class
+            return "Instructor reactivated successfully!";
         }
         return "Instructor not found!";
     }

@@ -18,7 +18,7 @@ public abstract class User {
     // Abstract methods to be implemented by subclasses
     public abstract void login();
     public abstract void logout();
-    public abstract void updateProfile();
+    public abstract void updateProfile(String newName, String newEmail);
 
     // Getters and Setters for attributes
     public String getUserID() {

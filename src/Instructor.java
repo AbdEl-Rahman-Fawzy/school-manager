@@ -117,7 +117,7 @@ public class Instructor extends User {
     }
 
     @Override
-    public void updateProfile() {
+    public void updateProfile(String newName, String newEmail) {
         // Method logic
     }
 
@@ -125,9 +125,11 @@ public class Instructor extends User {
     }
 
     public List<String> viewStudentsInCourse(String courseID) {
+        return null;
     }
 
     public String viewStudentProgress(String studentID, String courseID) {
+        return null;
     }
 
     public void uploadCourseMaterial(String courseID, String materialID) {

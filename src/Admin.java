@@ -27,11 +27,6 @@ public class Admin extends User {
         // Method logic
     }
 
-    // Method to update user profile (e.g., update email or name)
-    public void updateUserProfile(String userID, String newName, String newEmail) {
-        // Method logic
-    }
-
     // Method to generate system reports (e.g., user activity, course statistics)
     public void generateReport() {
         // Method logic
@@ -51,8 +46,11 @@ public class Admin extends User {
 
     // Method to update admin profile
     @Override
-    public void updateProfile() {
+    public void updateProfile(String newName, String newEmail) {
         // Method logic
+    }
+    public List<String> listAllUsers() {
+        return null;
     }
 
     // Getter and Setter methods
@@ -80,6 +78,5 @@ public class Admin extends User {
         this.managedUsers = managedUsers;
     }
 
-    public List<String> listAllUsers() {
-    }
+
 }
