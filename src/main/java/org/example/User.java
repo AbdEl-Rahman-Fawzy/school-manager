@@ -1,13 +1,16 @@
-public abstract class User {
+package org.example;
 
-    private String userID;
+public abstract class User {
+    private boolean isActive;
+    private int userID;
     private String name;
     private String email;
     private String password;
     private Role role;  // Enum to represent the role (Admin, Student, Instructor)
 
     // Constructor
-    public User(String userID, String name, String email, String password, Role role) {
+    public User( int userID, String name, String email, String password, Role role) {
+        this.isActive = false;
         this.userID = userID;
         this.name = name;
         this.email = email;
@@ -15,17 +18,12 @@ public abstract class User {
         this.role = role;
     }
 
-    // Abstract methods to be implemented by subclasses
-    public abstract void login();
-    public abstract void logout();
-    public abstract void updateProfile(String newName, String newEmail);
-
     // Getters and Setters for attributes
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
@@ -63,9 +61,12 @@ public abstract class User {
 
     public void sendNotification(String message) {
     }
-}
-enum Role {
-    ADMIN,
-    STUDENT,
-    INSTRUCTOR
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
 }

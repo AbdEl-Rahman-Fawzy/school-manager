@@ -1,59 +1,89 @@
+package org.example;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Lesson {
 
-    private String lessonID;
+    private int lessonID;
     private String title;
-    private String courseID;
-    private String instructorID;
+    private int courseID;
+    private int instructorID;
     private List<String> materials; // List of resources like documents, videos, etc.
-    private String dateScheduled; // Date when the lesson is scheduled
     private int duration; // Duration of the lesson in minutes
     private boolean isCompleted; // Indicates whether the lesson is completed or not
+    private String dateScheduled;
 
     // Constructor
-    public Lesson(String lessonID, String title, String description, String courseID, String instructorID, String dateScheduled, int duration) {
+    public Lesson(int lessonID, String title, int courseID, int instructorID, int duration) {
         this.lessonID = lessonID;
         this.title = title;
         this.courseID = courseID;
         this.instructorID = instructorID;
-        this.dateScheduled = dateScheduled;
         this.duration = duration;
         this.isCompleted = false; // Default to not completed
+        this.materials = new ArrayList<>(); // Initialize with an empty list
+    }
+
+    // Overloaded constructor
+    public Lesson(int lessonID, String title, int courseID, int instructorID, int duration, String dateScheduled) {
+        this(lessonID, title, courseID, instructorID, duration);
+        this.dateScheduled = dateScheduled;
     }
 
     // Method to start the lesson
     public void startLesson() {
-        // Method logic
+        if (isCompleted) {
+            System.out.println("Lesson is already completed.");
+            return;
+        }
+        System.out.println("Starting lesson: " + title);
     }
 
     // Method to end the lesson
     public void endLesson() {
-        // Method logic
+        if (isCompleted) {
+            System.out.println("Lesson is already completed.");
+            return;
+        }
+        isCompleted = true;
+        System.out.println("Lesson ended: " + title);
     }
 
     // Method to update lesson materials
     public void updateMaterials(List<String> newMaterials) {
-        // Method logic
+        if (newMaterials == null || newMaterials.isEmpty()) {
+            System.out.println("No materials provided to update.");
+            return;
+        }
+        this.materials.clear();
+        this.materials.addAll(newMaterials);
+        System.out.println("Materials updated for lesson: " + title);
     }
 
     // Method to check if the lesson is completed
     public boolean checkCompletion() {
-        // Method logic
         return isCompleted;
     }
 
     // Method to get lesson details
     public void getLessonDetails() {
-        // Method logic
+        System.out.println("Lesson ID: " + lessonID);
+        System.out.println("Title: " + title);
+        System.out.println("Course ID: " + courseID);
+        System.out.println("Instructor ID: " + instructorID);
+        System.out.println("Duration: " + duration + " minutes");
+        System.out.println("Scheduled Date: " + dateScheduled);
+        System.out.println("Completion Status: " + (isCompleted ? "Completed" : "Not Completed"));
+        System.out.println("Materials: " + (materials.isEmpty() ? "No materials available" : materials));
     }
 
     // Getter and Setter methods
-    public String getLessonID() {
+    public int getLessonID() {
         return lessonID;
     }
 
-    public void setLessonID(String lessonID) {
+    public void setLessonID(int lessonID) {
         this.lessonID = lessonID;
     }
 
@@ -65,19 +95,19 @@ public class Lesson {
         this.title = title;
     }
 
-    public String getCourseID() {
+    public int getCourseID() {
         return courseID;
     }
 
-    public void setCourseID(String courseID) {
+    public void setCourseID(int courseID) {
         this.courseID = courseID;
     }
 
-    public String getInstructorID() {
+    public int getInstructorID() {
         return instructorID;
     }
 
-    public void setInstructorID(String instructorID) {
+    public void setInstructorID(int instructorID) {
         this.instructorID = instructorID;
     }
 

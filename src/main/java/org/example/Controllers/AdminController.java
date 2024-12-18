@@ -1,16 +1,27 @@
+package org.example.Controllers;
+
+import org.example.*;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
 
-    private List<Admin> admins;  // In-memory store for admins
+    private List<Admin> admins;
 
-    // Method to create a new user (student or instructor)
+    public AdminController() {
+        admins = new ArrayList<>(); // Initialize the list
+        admins.add(new Admin(1, "AdminName", "admin@example.com", "password", 1));
+    }
+
     @PostMapping("/createUser")
-    public String createUser(@RequestParam String userID, @RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam String role) {
-        Admin admin = findAdminById(userID);
+    public String createUser(@RequestParam int adminID, @RequestParam int userID, @RequestParam String name, @RequestParam String email,
+                             @RequestParam String password, @RequestParam String role) {
+        System.out.println("createUser endpoint hit");
+        Admin admin = findAdminById(adminID);
         if (admin != null) {
             admin.createUser(userID, name, email, password, Role.valueOf(role));
             return "User created successfully!";
@@ -18,9 +29,10 @@ public class AdminController {
         return "Admin not found!";
     }
 
-    // Method to manage a course
+
     @PostMapping("/manageCourse")
-    public String manageCourse(@RequestParam String adminID, @RequestParam String courseID) {
+    public String manageCourse(@RequestParam int adminID, @RequestParam int courseID) {
+        System.out.println("manageCourse endpoint hit with adminID: " + adminID + " and courseID: " + courseID);
         Admin admin = findAdminById(adminID);
         if (admin != null) {
             admin.manageCourse(courseID);
@@ -29,20 +41,22 @@ public class AdminController {
         return "Admin not found!";
     }
 
-    // Method to delete a user
     @DeleteMapping("/deleteUser/{userID}")
-    public String deleteUser(@PathVariable String userID) {
+    public String deleteUser(@PathVariable int userID) {
         Admin admin = findAdminById(userID);
         if (admin != null) {
-            admin.deleteUser(userID);
-            return "User deleted successfully!";
+            if (admin.deleteUser(userID)) {
+                return "User deleted successfully!";
+            } else {
+                return "User ID invalid!";
+            }
         }
-        return "Admin not found!";
+        return "Admin not found or userID is false!";
     }
 
-    // Method to update admin profile
     @PostMapping("/updateProfile")
-    public String updateProfile(@RequestParam String adminID, @RequestParam String newName, @RequestParam String newEmail) {
+    public String updateProfile(@RequestParam int adminID, @RequestParam String newName,
+                                @RequestParam String newEmail) {
         Admin admin = findAdminById(adminID);
         if (admin != null) {
             admin.updateProfile(newName, newEmail);
@@ -51,9 +65,8 @@ public class AdminController {
         return "Admin not found!";
     }
 
-    // Method to generate a report
     @GetMapping("/generateReport")
-    public String generateReport(@RequestParam String adminID) {
+    public String generateReport(@RequestParam int adminID) {
         Admin admin = findAdminById(adminID);
         if (admin != null) {
             admin.generateReport();
@@ -62,31 +75,28 @@ public class AdminController {
         return "Admin not found!";
     }
 
-    // Method to list all users
     @GetMapping("/listUsers")
-    public List<String> listUsers(@RequestParam String adminID) {
+    public List<String> listUsers(@RequestParam int adminID) {
         Admin admin = findAdminById(adminID);
         if (admin != null) {
-            return admin.listAllUsers();  // Assuming this method is implemented in Admin class
+            return admin.listAllUsers();
         }
-        return null;  // Or return an appropriate response
+        return null;
     }
 
-    // Method to send notifications
     @PostMapping("/sendNotification")
-    public String sendNotification(@RequestParam String adminID, @RequestParam String message) {
+    public String sendNotification(@RequestParam int adminID, @RequestParam String message) {
         Admin admin = findAdminById(adminID);
         if (admin != null) {
-            admin.sendNotification(message);  // Assuming this method is implemented in Admin class
+            admin.sendNotification(message);
             return "Notification sent successfully!";
         }
         return "Admin not found!";
     }
 
-    // Helper method to find admin by ID (for demo purposes)
-    private Admin findAdminById(String adminID) {
+    private Admin findAdminById(int adminID) {
         for (Admin admin : admins) {
-            if (admin.getUserID().equals(adminID)) {
+            if (admin.getUserID() == adminID) {
                 return admin;
             }
         }

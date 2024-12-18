@@ -1,8 +1,11 @@
+package org.example;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Assignment {
 
-    private String assignmentID;
+    private int assignmentID;
     private String courseID;
     private String title;
     private String description;
@@ -13,7 +16,7 @@ public class Assignment {
     private boolean isGraded; // Whether the assignment has been graded or not
 
     // Constructor
-    public Assignment(String assignmentID, String courseID, String title, String description, String dueDate, double gradingCriteria, String instructorID) {
+    public Assignment(int assignmentID, String courseID, String title, String description, String dueDate, double gradingCriteria, String instructorID) {
         this.assignmentID = assignmentID;
         this.courseID = courseID;
         this.title = title;
@@ -22,40 +25,62 @@ public class Assignment {
         this.gradingCriteria = gradingCriteria;
         this.instructorID = instructorID;
         this.isGraded = false; // Default to not graded
+        this.submittedAssignments = new ArrayList<>(); // Initialize the list
     }
 
     // Method to create an assignment
     public void createAssignment() {
-        // Method logic
+        System.out.println("Assignment created: " + title);
     }
 
     // Method to submit an assignment
     public void submitAssignment(String studentID) {
-        // Method logic
+        if (submittedAssignments.contains(studentID)) {
+            System.out.println("Assignment already submitted by student: " + studentID);
+            return;
+        }
+        submittedAssignments.add(studentID);
+        System.out.println("Assignment submitted by student: " + studentID);
     }
 
     // Method to grade an assignment
     public void gradeAssignment(String studentID, double grade) {
-        // Method logic
+        if (!submittedAssignments.contains(studentID)) {
+            System.out.println("Student " + studentID + " has not submitted the assignment.");
+            return;
+        }
+        if (isGraded) {
+            System.out.println("Assignment is already graded.");
+            return;
+        }
+        System.out.println("Assignment graded for student: " + studentID + " with grade: " + grade);
+        isGraded = true;
     }
 
     // Method to check if the assignment is graded
     public boolean checkGradingStatus() {
-        // Method logic
         return isGraded;
     }
 
     // Method to get the details of the assignment
     public void getAssignmentDetails() {
-        // Method logic
+        System.out.println("Assignment ID: " + assignmentID);
+        System.out.println("Course ID: " + courseID);
+        System.out.println("Title: " + title);
+        System.out.println("Description: " + description);
+        System.out.println("Due Date: " + dueDate);
+        System.out.println("Grading Criteria: " + gradingCriteria);
+        System.out.println("Instructor ID: " + instructorID);
+        System.out.println("Submitted Assignments: " + (submittedAssignments.isEmpty() ? "None" : submittedAssignments));
+        System.out.println("Graded: " + (isGraded ? "Yes" : "No"));
     }
 
     // Getter and Setter methods
-    public String getAssignmentID() {
+    public int getAssignmentID() {
         return assignmentID;
     }
 
-    public void setAssignmentID(String assignmentID) {
+    public void setAssignmentID(int assignmentID) {
         this.assignmentID = assignmentID;
     }
 
@@ -92,11 +117,11 @@ public class Assignment {
     }
 
     public List<String> getSubmittedAssignments() {
-        return submittedAssignments;
+        return new ArrayList<>(submittedAssignments);
     }
 
     public void setSubmittedAssignments(List<String> submittedAssignments) {
-        this.submittedAssignments = submittedAssignments;
+        this.submittedAssignments = new ArrayList<>(submittedAssignments);
     }
 
     public double getGradingCriteria() {
@@ -121,5 +146,12 @@ public class Assignment {
 
     public void setGraded(boolean graded) {
         isGraded = graded;
+    }
+
+    public void gradeStudent(String studentID, double grade) {
+    }
+
+    public double getScore() {
+        return getScore();
     }
 }
